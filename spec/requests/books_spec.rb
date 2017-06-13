@@ -72,7 +72,7 @@ RSpec.describe 'Book API', type: :request do
 
       it 'returns a validation error message' do
         expect(response.body)
-          .to match(/Validation failed: Size can't be blank/)
+        .to match(/Validation failed: Size can't be blank/)
       end
     end
   end
@@ -94,12 +94,98 @@ RSpec.describe 'Book API', type: :request do
     end
   end
 
+  # Tests for borrowing and returning books
+  describe "borrowing and returning books" do
+    before do
+      @book_i = create(:book)
+      @book_o = create(:book, :on_circ)
+      @book_d = create(:book, :discont)
+    end
+    # Test for PATCH /books/:id/borrow
+    describe 'PATCH /books/:id/borrow' do
+      context 'when borrowing a book in shelf' do
+        before { patch "/books/#{book_id}/borrow" }
+        it 'returns status code 204' do
+          expect(response).to have_http_status(204)
+        end
+
+        it 'changes the book\'s status' do
+          get "/books/#{book_id}"
+          expect(json['status']).to eql("on_circ")
+        end
+      end
+
+      context 'when borrowing a book on circ' do
+        before { patch "/books/#{@book_o.id}/borrow" }
+        it 'returns status code 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'doesn\'t change the book status' do
+          get "/books/#{@book_o.id}"
+          expect(json['status']).to eql("on_circ")
+        end
+      end
+
+      context 'when borrowing a discontinued book' do
+        before { patch "/books/#{@book_d.id}/borrow" }
+        it 'returns status code 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'doesn\'t change the book status' do
+          get "/books/#{@book_d.id}"
+          expect(json['status']).to eql("discont")
+        end
+      end
+    end
+
+    # Test for PATCH /books/:id/return
+    describe 'PATCH /books/:id/return' do
+      context 'when returning a book on circ' do
+        before { patch "/books/#{@book_o.id}/return" }
+        it 'returns status code 204' do
+          expect(response).to have_http_status(204)
+        end
+
+        it 'changes the book\'s status' do
+          get "/books/#{@book_o.id}"
+          expect(json['status']).to eql("in_shelf")
+        end
+      end
+
+      context 'when returning a book in shelf' do
+        before { patch "/books/#{@book_i.id}/return" }
+        it 'returns status code 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'doesn\'t change the book status' do
+          get "/books/#{@book_i.id}"
+          expect(json['status']).to eql("in_shelf")
+        end
+      end
+
+      context 'when returning a discontinued book' do
+        before { patch "/books/#{@book_d.id}/return" }
+        it 'returns status code 422' do
+          expect(response).to have_http_status(422)
+        end
+
+        it 'doesn\'t change the book status' do
+          get "/books/#{@book_d.id}"
+          expect(json['status']).to eql("discont")
+        end
+      end
+    end
+  end
+
   # Test for DELETE /books/:id
   describe 'DELETE /books/:id' do
     before { delete "/books/#{book_id}" }
 
     it 'returns status code 204' do
-        expect(response).to have_http_status(204)
+      expect(response).to have_http_status(204)
     end
   end
 end

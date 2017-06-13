@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:show, :update, :destroy, :borrow, :return]
 
   def index
     @books = Book.all
@@ -23,6 +23,24 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     head :no_content
+  end
+
+  def borrow
+    if @book.borrow_book && @book.save
+      head :no_content
+    else
+      json_response({ message: "Book is #{@book.status} and can't be borrowed" },
+                      :unprocessable_entity)
+    end
+  end
+
+  def return
+    if @book.return_book && @book.save
+      head :no_content
+    else
+      json_response({ message: "Book is #{@book.status} and can't be returned" },
+                      :unprocessable_entity)
+    end
   end
 
   private
