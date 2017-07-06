@@ -8,7 +8,7 @@ RSpec.describe 'Book API', type: :request do
   # Test for GET all books
   describe 'GET /books' do
     # Make an http request before the testing
-    before { get '/books' }
+    before { get '/api/books' }
 
     it "returns a list of books" do
       expect(json).not_to be_empty
@@ -22,7 +22,7 @@ RSpec.describe 'Book API', type: :request do
 
   # Test for GET single book
   describe 'GET /books/:id' do
-    before { get "/books/#{book_id}" }
+    before { get "/api/books/#{book_id}" }
 
     context 'when the book exists' do
       it 'returns the book' do
@@ -52,7 +52,7 @@ RSpec.describe 'Book API', type: :request do
     let(:invalid_attr) { {title: 'asdfasdf', author: 'asd', section: "X", batch: 0} }
 
     context 'when the request is valid' do
-      before { post '/books', params: valid_attr }
+      before { post '/api/books', params: valid_attr }
 
       it 'creates a book' do
         expect(json['title']).to eql('Art of War')
@@ -64,7 +64,7 @@ RSpec.describe 'Book API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/books', params: invalid_attr }
+      before { post '/api/books', params: invalid_attr }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -82,7 +82,7 @@ RSpec.describe 'Book API', type: :request do
     let(:valid_attr) { {title: 'War of Art'} }
 
     context 'when the record exists' do
-      before { put "/books/#{book_id}", params: valid_attr }
+      before { put "/api/books/#{book_id}", params: valid_attr }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -104,37 +104,37 @@ RSpec.describe 'Book API', type: :request do
     # Test for PATCH /books/:id/borrow
     describe 'PATCH /books/:id/borrow' do
       context 'when borrowing a book in shelf' do
-        before { patch "/books/#{book_id}/borrow" }
+        before { patch "/api/books/#{book_id}/borrow" }
         it 'returns status code 204' do
           expect(response).to have_http_status(204)
         end
 
         it 'changes the book\'s status' do
-          get "/books/#{book_id}"
+          get "/api/books/#{book_id}"
           expect(json['status']).to eql("on_circ")
         end
       end
 
       context 'when borrowing a book on circ' do
-        before { patch "/books/#{@book_o.id}/borrow" }
+        before { patch "/api/books/#{@book_o.id}/borrow" }
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
         end
 
         it 'doesn\'t change the book status' do
-          get "/books/#{@book_o.id}"
+          get "/api/books/#{@book_o.id}"
           expect(json['status']).to eql("on_circ")
         end
       end
 
       context 'when borrowing a discontinued book' do
-        before { patch "/books/#{@book_d.id}/borrow" }
+        before { patch "/api/books/#{@book_d.id}/borrow" }
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
         end
 
         it 'doesn\'t change the book status' do
-          get "/books/#{@book_d.id}"
+          get "/api/books/#{@book_d.id}"
           expect(json['status']).to eql("discont")
         end
       end
@@ -143,37 +143,37 @@ RSpec.describe 'Book API', type: :request do
     # Test for PATCH /books/:id/return
     describe 'PATCH /books/:id/return' do
       context 'when returning a book on circ' do
-        before { patch "/books/#{@book_o.id}/return" }
+        before { patch "/api/books/#{@book_o.id}/return" }
         it 'returns status code 204' do
           expect(response).to have_http_status(204)
         end
 
         it 'changes the book\'s status' do
-          get "/books/#{@book_o.id}"
+          get "/api/books/#{@book_o.id}"
           expect(json['status']).to eql("in_shelf")
         end
       end
 
       context 'when returning a book in shelf' do
-        before { patch "/books/#{@book_i.id}/return" }
+        before { patch "/api/books/#{@book_i.id}/return" }
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
         end
 
         it 'doesn\'t change the book status' do
-          get "/books/#{@book_i.id}"
+          get "/api/books/#{@book_i.id}"
           expect(json['status']).to eql("in_shelf")
         end
       end
 
       context 'when returning a discontinued book' do
-        before { patch "/books/#{@book_d.id}/return" }
+        before { patch "/api/books/#{@book_d.id}/return" }
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
         end
 
         it 'doesn\'t change the book status' do
-          get "/books/#{@book_d.id}"
+          get "/api/books/#{@book_d.id}"
           expect(json['status']).to eql("discont")
         end
       end
@@ -182,7 +182,7 @@ RSpec.describe 'Book API', type: :request do
 
   # Test for DELETE /books/:id
   describe 'DELETE /books/:id' do
-    before { delete "/books/#{book_id}" }
+    before { delete "/api/books/#{book_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
