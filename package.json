@@ -16,7 +16,7 @@
 	"dev": "NODE_ENV=\"development\" && cd client && ng serve",
 	"prod": "cd client && ng build --prod --output-hashing=none",
 	"preinstall": "npm install -g angular-cli node-gyp",
-	"heroku-postbuild": "npm run prod"
+	"postinstall": "npm run prod"
   },
   "private": true,
   "dependencies": {
