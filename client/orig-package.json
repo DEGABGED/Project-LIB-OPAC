@@ -1,20 +1,16 @@
 {
   "name": "cwts-frontend",
   "version": "0.0.0",
-  "engines": {
-    "node": "8.1.1",
-    "npm": "5.0.x"
-  },
   "license": "MIT",
   "scripts": {
-    "ng": "cd client && ng",
-    "start": "cd client && ng serve",
-    "build": "cd client && ng build",
-    "test": "cd client && ng test",
-    "lint": "cd client && ng lint",
-    "e2e": "cd client && ng e2e",
-	"dev": "NODE_ENV=\"development\" && cd client && ng serve",
-	"prod": "cd client && ng build --prod --output-hashing=none",
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+	"dev": "NODE_ENV=\"development\" && ng serve",
+	"prod": "ng build --prod --output-hashing=none",
 	"heroku-postbuild": "npm run prod"
   },
   "private": true,
