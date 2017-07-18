@@ -7,7 +7,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "ng": "cd client && ng",
+    "ng": "ng",
     "start": "cd client && ng serve",
     "build": "cd client && ng build",
     "test": "cd client && ng test",
