@@ -1,0 +1,12 @@
+<h2>List of Books:</h2>
+<ul class="books">
+  <li *ngFor="let book of books"
+    (click)="onSelect(book)"
+    [routerLink]="['/books', book.id]">
+    {{book.title}} by {{book.author}}
+    <button class="delete"
+            (click)="delete(book); $event.stopPropagation()">x</button>
+  </li>
+</ul>
+<br>
+<!--<books-show [book]="sel_book"></books-show>-->
