@@ -21,8 +21,8 @@
 .byebug_history
 
 # public/ gets built anyway idk
-/public
-/public/**/*
+# Remove build artifacts
+
 
 # Some NodeJS shit in the client/ dir
 
