@@ -14,7 +14,7 @@
     "lint": "cd client && ng lint",
     "e2e": "cd client && ng e2e",
 	"dev": "NODE_ENV=\"development\" && cd client && ng serve",
-	"prod": "cd client && ng build --prod --output-hashing=none",
+	"prod": "echo \"debugging code\" && pwd && cd client && ng build --prod --output-hashing=none",
 	"preinstall": "npm install -g angular-cli node-gyp",
 	"postinstall": "npm run prod"
   },
