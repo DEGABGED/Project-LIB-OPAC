@@ -24,6 +24,10 @@ gem 'puma', '~> 3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Auth gems
+gem 'devise_token_auth'
+gem 'omniauth'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
