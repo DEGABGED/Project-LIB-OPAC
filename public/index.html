@@ -138,18 +138,20 @@
                   <label for="inputSection">Section</label>
                   <input name="section" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter section">
                 </div>
+                <div class="form-group">
+                  <label for="inputStatus">Status</label>
+                  <input name="status" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter status">
+                </div>
                 &nbsp;
                 <div class="form-group">
-                  <p> Quantity </p>
                   <div class="form-row">
-                    <div class="col-md-4">
-                      <input name="batch" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="# of on-shelf books">
+                    <div class="col-md-6">
+                    <label for="inputBatch">Batch</label>
+                      <input name="batch" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Batch Number">
                     </div>
-                    <div class="col-md-4">
-                      <input name="size" class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="# of loaned books">
-                    </div>
-                    <div class="col-md-4">
-                      <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="# of unloanable books">
+                    <div class="col-md-6">
+                    <label for="inputSize">Size</label>
+                      <input name="size" class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Size Number">
                     </div>
                     &nbsp;
                   </div>
@@ -171,10 +173,10 @@
           <div class="card card-register mx-auto mt-5">
             <div class="card-header">Edit Book Entry</div>
             <div class="card-body">
-              <form>
+              <form id="edit-book">
                 <div class="form-group">
                   <span class="input-group-append">
-                    <input class="form-control" type="text" placeholder="Enter Book ID">
+                    <input name="id" class="form-control" type="text" placeholder="Enter Book ID">
                     <span class="input-group-append">
                       <button class="btn btn-primary" type="button">
                         <i class="fa fa-search"></i>
@@ -184,33 +186,35 @@
                 </div>
                 <div class="form-group">
                   <label for="inputTitle">Title</label>
-                  <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter book's title">
+                  <input name="title" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter book's title">
                 </div>
                 <div class="form-group">
                   <label for="inputAuthor">Author</label>
-                  <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter author's name">
+                  <input name="author" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter author's name">
                 </div>
                 <div class="form-group">
-                  <label for="inputKeywords">Keywords</label>
-                  <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter keywords">
+                  <label for="inputSection">Section</label>
+                  <input name="section" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter section">
+                </div>
+                <div class="form-group">
+                  <label for="inputStatus">Status</label>
+                  <input name="status" class="form-control" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Enter status">
                 </div>
                 &nbsp;
                 <div class="form-group">
-                  <p> Quantity </p>
                   <div class="form-row">
-                    <div class="col-md-4">
-                      <input class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="# of on-shelf books">
+                    <div class="col-md-6">
+                    <label for="inputBatch">Batch</label>
+                      <input name="batch" class="form-control" id="exampleInputName" type="text" aria-describedby="nameHelp" placeholder="Batch Number">
                     </div>
-                    <div class="col-md-4">
-                      <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="# of loaned books">
-                    </div>
-                    <div class="col-md-4">
-                      <input class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="# of unloanable books">
+                    <div class="col-md-6">
+                    <label for="inputSize">Size</label>
+                      <input name="size" class="form-control" id="exampleInputLastName" type="text" aria-describedby="nameHelp" placeholder="Size Number">
                     </div>
                     &nbsp;
                   </div>
                 </div>
-                <a class="btn btn-primary btn-block" href="#">Edit Entry</a>
+                <input type='submit' class="btn btn-primary btn-block" href="#" value="Edit Entry">
                 <a class="btn btn-danger btn-block" data-dismiss="modal" href="#">Cancel</a>
               </form>
             </div>

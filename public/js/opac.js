@@ -5,8 +5,8 @@ $(document).ready(() => {
   // Create helper functions
   function createRecord(data) {
     return "<tr><td>" + data.id +
-      "</td><td>" + data.title +
-      "</td><td>" + data.author +
+      "</td><td><a href='#'>" + data.title +
+      "</a></td><td>" + data.author +
       "</td><td>" + data.status +
       "</td></tr>";
   }
@@ -16,7 +16,19 @@ $(document).ready(() => {
     url: "http://localhost:3000/api/books/"
   }).then((data) => {
     $.each(data, (index, value) => {
+      // Add data record to table
       $dataTable.append(createRecord(value));
+      // Add on-click link to add data to modal
+      $('#dataTable tr:last a').on('click', () => {
+        $('#edit-book input[name=id]').val(value.id);
+        $('#edit-book input[name=title]').val(value.title);
+        $('#edit-book input[name=author]').val(value.author);
+        $('#edit-book input[name=section]').val(value.section);
+        $('#edit-book input[name=status]').val(value.status);
+        $('#edit-book input[name=batch]').val(value.batch);
+        $('#edit-book input[name=size]').val(value.size);
+        $('#editModal').modal('show');
+      });
     });
   });
 
@@ -24,11 +36,12 @@ $(document).ready(() => {
   $('#create-book').submit((event) => {
     // Get form data
     var formdata = {
-      'title': $('input[name=title]').val(),
-      'author': $('input[name=author]').val(),
-      'section': $('input[name=section]').val(),
-      'batch': $('input[name=batch]').val(),
-      'size': $('input[name=size]').val()
+      'title': $('#create-book input[name=title]').val(),
+      'author': $('#create-book input[name=author]').val(),
+      'section': $('#create-book input[name=section]').val(),
+      'status': $('#create-book input[name=status]').val(),
+      'batch': $('#create-book input[name=batch]').val(),
+      'size': $('#create-book input[name=size]').val()
     };
 
     // Send the form
@@ -41,6 +54,39 @@ $(document).ready(() => {
       // Remove modal and append new record to the table
       $('#createModal').modal('hide');
       $dataTable.append(createRecord(data));
+    }).fail((data, textStatus, xhr) => {
+      // Backend validation
+      alert(data.responseJSON.message);
+    });
+
+    // Prevent the default form submission
+    event.preventDefault();
+  });
+
+  // Edit form
+  $('#edit-book').submit((event) => {
+    // Get form data
+    var book_id = $('input[name=id]').val();
+    var editdata = {
+      'title': $('#edit-book input[name=title]').val(),
+      'author': $('#edit-book input[name=author]').val(),
+      'section': $('#edit-book input[name=section]').val(),
+      'status': $('#edit-book input[name=status]').val(),
+      'batch': $('#edit-book input[name=batch]').val(),
+      'size': $('#edit-book input[name=size]').val()
+    };
+
+    console.log(editdata);
+
+    // Send the form
+    $.ajax({
+      type: 'PUT',
+      url: 'http://localhost:3000/api/books/' + book_id + '/',
+      data: editdata,
+      dataType: 'json'
+    }).done((data) => {
+      // Remove modal and append new record to the table
+      $('#editModal').modal('hide');
     }).fail((data, textStatus, xhr) => {
       // Backend validation
       alert(data.responseJSON.message);
