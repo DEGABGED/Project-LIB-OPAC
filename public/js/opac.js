@@ -54,6 +54,16 @@ $(document).ready(() => {
       // Remove modal and append new record to the table
       $('#createModal').modal('hide');
       $dataTable.append(createRecord(data));
+      $('#dataTable tr:last a').on('click', () => {
+        $('#edit-book input[name=id]').val(data.id);
+        $('#edit-book input[name=title]').val(data.title);
+        $('#edit-book input[name=author]').val(data.author);
+        $('#edit-book input[name=section]').val(data.section);
+        $('#edit-book input[name=status]').val(data.status);
+        $('#edit-book input[name=batch]').val(data.batch);
+        $('#edit-book input[name=size]').val(data.size);
+        $('#editModal').modal('show');
+      });
     }).fail((data, textStatus, xhr) => {
       // Backend validation
       alert(data.responseJSON.message);
@@ -87,6 +97,8 @@ $(document).ready(() => {
     }).done((data) => {
       // Remove modal and append new record to the table
       $('#editModal').modal('hide');
+      // Reload
+      location.reload();
     }).fail((data, textStatus, xhr) => {
       // Backend validation
       alert(data.responseJSON.message);
