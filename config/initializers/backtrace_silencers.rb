@@ -5,3 +5,7 @@
 
 # You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
 # Rails.backtrace_cleaner.remove_silencers!
+
+## LICENSE
+## This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2017-2018.
+##

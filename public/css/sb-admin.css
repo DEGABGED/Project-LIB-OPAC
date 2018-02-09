@@ -494,3 +494,6 @@ footer.sticky-footer {
   80% {top: -100; opacity: .6}
   100% {top: 0; opacity: 1}
 }
+/** LICENSE
+  * This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2017-2018.
+  */
